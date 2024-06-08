@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block content %} {% if session['logged_in'] %}
+<h1 class="ttl">Calling...</h1>
+{% else %}
+
+<h1 class="ttl">Login First</h1>
+{% endif %} {% endblock%}

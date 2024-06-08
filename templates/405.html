@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+
+<link
+  href="{{ url_for('static', filename='css/errors.css') }}"
+  rel="stylesheet"
+/>
+
+<h1 class="ttl">405</h1>
+<h3>Method not allowed</h3>
+<img src="{{ url_for('static', filename='img/405.png') }}" />
+{% endblock %}

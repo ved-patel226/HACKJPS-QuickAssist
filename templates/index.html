@@ -1,0 +1,190 @@
+{% extends "base.html" %} {% block content %}
+<link
+  href="{{ url_for('static', filename='css/index.css') }}"
+  rel="stylesheet"
+/>
+
+{% if session['r_logged_in'] %}
+
+<style>
+  html {
+  background: #1b262c;
+}
+</style>
+
+<h1 class="ttl">Welcome {{session['r_username']}}!</h1>
+
+<form action="/" method="POST">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      id="formGroupExampleInput"
+      name="reference"
+      placeholder="Reference Number"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+{% if session['report_user'] != None %}
+
+<h1 style="margin-bottom: 0">User:</h1>
+<h2 style="margin-top: 0">{{session['report_user']}}</h2>
+
+<form action="/report" method="POST">
+  <button type="submit" class="btn btn-primary" name="report">Report</button>
+</form>
+
+{% endif %} {% elif session['logged_in'] %} {% if data %}
+<h3>{{data}}</h3>
+{% else %}
+
+<style>
+  html {
+  background: #1b262c;
+}
+</style>
+
+<h1 class="ttl">Welcome, {{session['username']}}</h1>
+
+<div class="card-container-container">
+  <div class="card-container">
+    <div
+      id="1"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/1.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+    <div
+      id="2"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/2.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+    <div
+      id="3"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/3.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+    <div
+      id="4"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/5.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+  </div>
+</div>
+
+<div class="card-container-container">
+  <div class="card-container">
+
+      <!-- Spacer -->
+    </div>
+    <div
+      id="5"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/6.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+    <div
+      id="6"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/7.png') }});"
+    >
+      <!-- Spacer -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("1").addEventListener("click", function () {
+    window.location.href = "{{ url_for('emergency', type='crash')|safe }}";
+  });
+  document.getElementById("2").addEventListener("click", function () {
+    window.location.href = "{{ url_for('emergency', type='debris')|safe }}";
+  });
+  document.getElementById("3").addEventListener("click", function () {
+    window.location.href = "{{ url_for('emergency', type='pothole')|safe }}";
+  });
+  document.getElementById("4").addEventListener("click", function () {
+    window.location.href =
+      "{{ url_for('emergency', type='faulty-traffic-light')|safe }}";
+  });
+  document.getElementById("5").addEventListener("click", function () {
+    window.location.href = "{{ url_for('emergency', type='ice')|safe }}";
+  });
+  document.getElementById("6").addEventListener("click", function () {
+    window.location.href = "{{ url_for('emergency', type='oil')|safe }}";
+  });
+</script>
+
+{% endif %} {% else %}
+
+<!-- From here -->
+
+<div class="hero" style="position: relative; flex-direction: column">
+  <h1>Report road hazards</h1>
+  <p>Keep the roads safe for everyone</p>
+  <img class="car"
+    src="{{ url_for('static', filename='img/car.png') }}"
+    style="position: absolute; top: 10%; left: 100%"
+  />
+</div>
+
+<h1 class="ttl">How it works</h1>
+<img
+src="{{ url_for('static', filename='img/click.png') }}"
+/>
+
+<!-- From here -->
+
+{% endif %} {% endblock %} {% block nav %}
+<link
+  href="{{ url_for('static', filename='css/login.css') }}"
+  rel="stylesheet"
+/>
+
+{% if session['logged_in'] or session['r_logged_in'] %}
+<a
+  href="/logout"
+  data-toggle="modal"
+  data-target="#logoutModal"
+  style="
+    text-decoration: none;
+    position: absolute;
+    right: 0;
+    margin-right: 2rem;
+  "
+  class="scale"
+  >Logout</a
+>
+
+{% else %}
+
+<div class="nav-a">
+  <a
+    href="/login"
+    data-toggle="modal"
+    data-target="#logoutModal"
+    class="scale"
+    style="display: inline-block"
+    >Login</a
+  >
+  <a
+    href="/register"
+    data-toggle="modal"
+    data-target="#logoutModal"
+    class="scale"
+    style="display: inline-block"
+    >Register</a
+  >
+</div>
+
+{% endif %} {% endblock %}

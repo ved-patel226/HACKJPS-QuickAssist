@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% block content %}
+<link
+  href="{{ url_for('static', filename='css/index.css') }}"
+  rel="stylesheet"
+/>
+{% if session['logged_in'] %}
+
+<h1>What is the Severity?</h1>
+
+<div class="card-container-container">
+  <div class="card-container">
+    <div
+      id="1"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/severity/1.png') }});"
+    >
+      <!-- spacer -->
+    </div>
+    <div
+      id="2"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/severity/2.png') }});"
+    >
+      <!-- spacer -->
+    </div>
+    <div
+      id="3"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/severity/3.png') }});"
+    >
+      <!-- spacer -->
+    </div>
+    <div
+      id="4"
+      class="card"
+      style="background-image: url({{ url_for('static', filename='/img/icons/severity/4.png') }});"
+    >
+      <!-- spacer -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("1").addEventListener("click", function () {
+    window.location.href =
+      "{{ url_for('call', type=type, severity='1')|safe }}";
+  });
+  document.getElementById("2").addEventListener("click", function () {
+    window.location.href =
+      "{{ url_for('call', type=type, severity='2')|safe }}";
+  });
+  document.getElementById("3").addEventListener("click", function () {
+    window.location.href =
+      "{{ url_for('call', type=type, severity='3')|safe }}";
+  });
+  document.getElementById("4").addEventListener("click", function () {
+    window.location.href =
+      "{{ url_for('call', type=type, severity='4')|safe }}";
+  });
+</script>
+{% else %} {{abort(403)}} {% endif %}{% endblock %}
