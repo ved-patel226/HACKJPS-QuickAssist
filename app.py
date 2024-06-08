@@ -5,18 +5,16 @@ from flask import request
 import requests
 import requests
 from sqlalchemy import cast, Numeric
-
+import time
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://quickassistdb_e8yi_user:GIj8c92qF31H7Y6KJPdqH8dyPN9jjrz8@dpg-cpi53luct0pc73fmg5c0-a.oregon-postgres.render.com/quickassistdb_e8yi'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://quickassistdb_h5bg_user:BQTkvSdgb5vOnlJyuaFeth6YWihiQ9jN@dpg-cpiant4f7o1s73bf1c80-a.oregon-postgres.render.com/quickassistdb_h5bg'
 #sklite:///test.db
 #Second database -> postgres://quickassistdb_user:3ccCC6EM5CjGpDNd7AHTFhc6x7NgLU0l@dpg-cpcdkkm3e1ms73f7ufp0-a.ohio-postgres.render.com/quickassistdb
 #Test Database -> postgresql://quickassist_745t_user:unpecgvQXpOvZ4xobjVNeeEwl7EXEXVH@dpg-cpbrihm3e1ms739b0o70-a.ohio-postgres.render.com/quickassist_745t
-
 db = SQLAlchemy(app)
 
-#login info table
 class login_info(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True)
@@ -55,13 +53,15 @@ class location_and_emergency(db.Model):
     emergency = db.Column(db.String)
     level = db.Column(db.Integer)
     user = db.Column(db.String)
+    time = db.Column(db.Float)
     
-    def __init__(self, longitude, latitude, emergency, level, user):
+    def __init__(self, longitude, latitude, emergency, level, user, time):
         self.longitude = longitude
         self.latitude = latitude
         self.emergency = emergency
         self.level = level
         self.user= user
+        self.time = time
         
 class phone_numbers(db.Model):  
     id = db.Column(db.Integer, primary_key=True)
@@ -81,8 +81,6 @@ def get_state(lat, lng):
             if 'administrative_area_level_1' in component['types']:
                 return component['long_name']
     return None
-
-
 
 def get_location():
     url = f'https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyAhGURYDl089JjSC-xBtgfjQ3QhP8UNg9k'
@@ -199,8 +197,6 @@ def login():
             return redirect(url_for('inclogin'))
             
 
-
-
 @app.route('/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -283,7 +279,6 @@ def call():
         
         
         print(' ->>>>>>>>>>>>>>>>>>>>>>' + num.number, get_state(lat, lng))
-        
 
         payload = {
         "method": "ttsCallout",
@@ -315,31 +310,29 @@ def call():
         if int(severity)>=3 or type == 'crash':
             response = requests.post(url, json=payload, headers=headers, auth=(key, secret))
             data = response.json()
-            print(data + ' Police called.')
+            print('Police called.')
         else:
             response = requests.post(url, json=payload2, headers=headers, auth=(key, secret))
             data = response.json()
-            print(data +' DOT called.')
+            print('DOT called.')
         
 
     sus_user = login_info.query.filter_by(username=session['username']).first()
     if sus_user.sus == True:
-        sus_loc = location_and_emergency(longitude=user_loc[1], latitude=user_loc[2], emergency=type, level=int(severity), user=session['username'])
+        sus_loc = location_and_emergency(longitude=user_loc[1], latitude=user_loc[2], emergency=type, level=int(severity), user=session['username'], time=time.time())
         db.session.add(sus_loc)
         db.session.commit()
 
         return render_template('user_warning.html')
     else: 
-        #api_call(user_loc[2], user_loc[1])
+        api_call(user_loc[2], user_loc[1])
         #Call once final version is ready
         #uses credits
-
-        
-        
-        #Distance between 2 points
         
         print(user_loc[1], user_loc[2])
         '''
+        Distance between 2 points
+        
         lat1 = radians(user_loc[1])
         lon1 = radians(user_loc[2])
         lat2 = radians(user_loc[1] + 0.001)
@@ -358,14 +351,27 @@ def call():
 
         print("Result: ", distance)      
         
+        
+        
+        
         '''
-        #0.01 cushion
-    
         
+        '''
+        states = ["Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana", "Massachusetts", "Maryland", "Maine", "Michigan", "Minnesota", "Missouri", "Mississippi", "Montana", "North Carolina", "North Dakota", "Nebraska", "New Hampshire", "New Jersey", "New Mexico", "Nevada", "New York", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Virginia", "Vermont", "Washington", "Wisconsin", "West Virginia", "Wyoming"]
+
+        for state in states:
+            statess = phone_numbers(number='+17329264484', where=state)
+            db.session.add(statess)
+            db.session.commit()
+        '''
+
         
+
         similar_locations = location_and_emergency.query.filter(
             cast(location_and_emergency.longitude, Numeric).between(user_loc[1] - 0.01, user_loc[1] + 0.01),
-            cast(location_and_emergency.latitude, Numeric).between(user_loc[2] - 0.01, user_loc[2] + 0.01)
+            cast(location_and_emergency.latitude, Numeric).between(user_loc[2] - 0.01, user_loc[2] + 0.01),
+            cast(location_and_emergency.time, Numeric).between(time.time() - 3600, time.time() + 3600),
+
         ).all()
 
         for location in similar_locations:
@@ -374,8 +380,7 @@ def call():
             
             print(location.emergency, type, location.level, severity, user.sus)
             
-            
-            if location.emergency == type and location.level == int(severity) and user.sus == True:
+            if location.emergency == type and location.level == int(severity) and user.sus == True and location.user != session['username']: 
                 user.sus=False
                 db.session.commit()
                 print('User is no longer SUS')
@@ -386,29 +391,17 @@ def call():
                 print('User is no longer SUS')    
             '''
 
-
-
-
         #-74.3702528, 40.5798912
-        loc = location_and_emergency(longitude=user_loc[1], latitude=user_loc[2], emergency=type, level=int(severity), user=session['username'])
+        loc = location_and_emergency(longitude=user_loc[1], latitude=user_loc[2], emergency=type, level=int(severity), user=session['username'], time=time.time())
         db.session.add(loc)
         db.session.commit()
-
-
-        
-
 
         '''
         new_user = responders_login_info(username='responder1', password='password')
         db.session.add(new_user)
         db.session.commit()  
+
         '''
-
-
-
-        
-        
-
         return render_template('call.html', type=type, severity=severity)
 
 
@@ -442,10 +435,7 @@ def report():
     user = login_info.query.filter_by(username='ved').first()
 
     if user:
-            # Edit the user's login info
         user.sus = True
-
-            # Commit the changes to the database
         db.session.commit()
         
         print('Changed')

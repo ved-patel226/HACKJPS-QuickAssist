@@ -102,12 +102,16 @@ img {
 }
 
 .car {
+  position: absolute;
+  top: 10%;
+  left: 100%;
+  transform: translateX(25rem) translateY(-3rem);
   animation: car_bump ease-out 7.5s infinite;
 }
 
 @keyframes car_bump {
   100% {
-    transform: translateY(0) translateX(-100em);
+    transform: translateY(-3rem) translateX(-100em);
   }
 }
 .features {
@@ -147,4 +151,61 @@ img {
     #27343c 10%,
     #27343c 100%
   );
+}
+
+.center {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 852px) and (orientation: landscape) {
+  html {
+    background: linear-gradient(to bottom, #27343c 10%, #1b262c 15%);
+  }
+  .features {
+    flex-direction: column;
+  }
+  .feature {
+    width: 80%;
+  }
+
+  .car {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+  }
+}
+
+@media (max-width: 852px) and (orientation: portrait) {
+  .features {
+    flex-direction: column;
+  }
+  .feature {
+    width: 80%;
+  }
+  .card-container-container {
+    flex-direction: column;
+  }
+  .card {
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+  html {
+    background: linear-gradient(to bottom, #27343c 10%, #1b262c 15%);
+  }
+
+  .car {
+    position: absolute;
+    transform: translateX(25rem) translateY(0rem) scale(3);
+  }
+
+  @keyframes car_bump {
+    100% {
+      transform: translateY(0rem) translateX(-100em);
+    }
+  }
 }

@@ -149,10 +149,6 @@ button:active {
 }
 
 @media only screen and (min-device-width: 480px) and (max-device-width: 640px) {
-  .navbar {
-    padding: 5px 10px;
-  }
-
   .right {
     font-size: 1rem;
   }
@@ -180,7 +176,6 @@ button:active {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .loader.show {

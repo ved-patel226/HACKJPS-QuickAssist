@@ -1,0 +1,12 @@
+img {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+h1,
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}

@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-engine = create_engine('postgresql://quickassistdb_e8yi_user:GIj8c92qF31H7Y6KJPdqH8dyPN9jjrz8@dpg-cpi53luct0pc73fmg5c0-a.oregon-postgres.render.com/quickassistdb_e8yi', echo=True)
+engine = create_engine('postgresql://quickassistdb_h5bg_user:BQTkvSdgb5vOnlJyuaFeth6YWihiQ9jN@dpg-cpiant4f7o1s73bf1c80-a.oregon-postgres.render.com/quickassistdb_h5bg', echo=True)
 
 Base = declarative_base()
 
@@ -39,6 +39,7 @@ class User4(Base):
     emergency = Column(String)
     level = Column(Integer)
     user = Column(String)
+    time = Column(Float)
     
     
 class User5(Base):
