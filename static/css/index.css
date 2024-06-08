@@ -1,0 +1,150 @@
+html {
+  background: linear-gradient(to bottom, #27343c 25%, #1b262c 35%);
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.button-group {
+  padding: 1rem;
+}
+
+.float-objs {
+  width: 50%;
+  float: left;
+  padding: 20px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 10rem; /* Adjust width as needed */
+  height: 10rem; /* Adjust height as needed */
+  margin-right: 20px; /* Adjust spacing between cards */
+  background-image: url("replace_in_html");
+  background-size: cover;
+  background-position: center;
+  transition: 0.5s all var(--spring-easing);
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+
+.card-container-container {
+  max-width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: 15rem;
+}
+.hero {
+  display: flex;
+  flex-direction: column; /* Ensure vertical stacking */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(39, 52, 60, 0),
+    #27343c 5%,
+    #27343c 95%,
+    rgba(39, 52, 60, 0)
+  ); /* Adjust gradient stops */
+
+  height: 10rem;
+  position: relative;
+}
+
+.hero img {
+  position: absolute;
+  top: 45%;
+  left: 65%;
+}
+
+.hero h1,
+p {
+  margin: 0;
+}
+
+.nav-a {
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: 2rem;
+}
+
+.nav-a a {
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+img {
+  width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.nav-svg {
+  transform: translateY(2.5px);
+  margin-right: 0;
+}
+
+.car {
+  animation: car_bump ease-out 7.5s infinite;
+}
+
+@keyframes car_bump {
+  100% {
+    transform: translateY(0) translateX(-100em);
+  }
+}
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 50px;
+}
+.feature {
+  text-align: center;
+  width: 30%;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #223139;
+  border-radius: 10px;
+  margin: 2rem;
+  transition: 2s all var(--spring-easing);
+}
+
+.feature:hover {
+  transform: scale(1.05);
+}
+
+.feature h2 {
+  margin-top: 0;
+}
+.feature p {
+  color: #8e9ea8;
+}
+
+.more_info {
+  width: 100%;
+  height: 15rem;
+  padding-top: 3rem;
+  background: linear-gradient(
+    to bottom,
+    rgba(39, 52, 60, 0),
+    #27343c 10%,
+    #27343c 100%
+  );
+}

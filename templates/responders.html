@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block content %}
+
+<h1 class="ttl">Responders Login</h1>
+
+<!-- Login.css and responders login.css would be the same thing -->
+
+<link
+  href="{{ url_for('static', filename='css/login.css') }}"
+  rel="stylesheet"
+/>
+
+<form action="/responders" method="POST">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control"
+      id="formGroupExampleInput"
+      name="username"
+      placeholder="Username"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="password"
+      class="form-control"
+      id="formGroupExampleInput2"
+      name="password"
+      placeholder="Password"
+      required
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+
+{% endblock %}
