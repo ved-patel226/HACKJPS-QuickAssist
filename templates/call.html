@@ -6,4 +6,63 @@
 {% else %}
 
 <h1 class="ttl">Login First</h1>
-{% endif %} {% endblock%}
+{% endif %} {% endblock %} {% if session['logged_in'] %} {% block nav %}
+<link
+  href="{{ url_for('static', filename='css/index.css') }}"
+  rel="stylesheet"
+/>
+
+<style>
+  html {
+    background: #1b262c;
+  }
+</style>
+
+<div class="nav-a" style="margin-right: 0.5rem">
+  <div class="scale">
+    <a href="/logout" data-toggle="modal" data-target="#logoutModal">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="16px"
+        height="16px"
+        viewBox="0,0,255.99173,255.99173"
+        class="nav-svg"
+      >
+        <g
+          fill="#bbe1fa"
+          fill-rule="nonzero"
+          stroke="none"
+          stroke-width="1"
+          stroke-linecap="butt"
+          stroke-linejoin="miter"
+          stroke-miterlimit="10"
+          stroke-dasharray=""
+          stroke-dashoffset="0"
+          font-family="none"
+          font-weight="none"
+          font-size="none"
+          text-anchor="none"
+          style="mix-blend-mode: normal"
+        >
+          <g transform="scale(10.66667,10.66667)">
+            <path
+              d="M23.634,13.616l-3,-3c-0.488,-0.488 -1.279,-0.488 -1.768,0c-0.489,0.488 -0.488,1.279 0,1.768l0.866,0.866h-7.482c-0.69,0 -1.25,-0.56 -1.25,-1.25c0,-0.69 0.56,-1.25 1.25,-1.25h4.75v-6c0,-1.517 -1.233,-2.75 -2.75,-2.75h-9.5c-1.517,0 -2.75,1.233 -2.75,2.75v14.5c0,1.517 1.233,2.75 2.75,2.75h9.5c1.517,0 2.75,-1.233 2.75,-2.75v-3.5h2.732l-0.866,0.866c-0.488,0.488 -0.488,1.279 0,1.768c0.244,0.244 0.564,0.366 0.884,0.366c0.32,0 0.64,-0.122 0.884,-0.366l3,-3c0.488,-0.488 0.488,-1.28 0,-1.768z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </a>
+
+    <a
+      href="/logout"
+      data-toggle="modal"
+      data-target="#logoutModal"
+      style="display: inline-block; margin-left: 0.5rem"
+      class="del"
+      >Logout</a
+    >
+  </div>
+</div>
+{% endblock %}{% endif %}
