@@ -1,5 +1,8 @@
 {% extends "base.html" %} {% block content %} {% if session['logged_in'] %}
-<h1 class="ttl">Calling...</h1>
+<h1 class="ttl">Called!</h1>
+<a href="/">
+  <button>Home</button>
+</a>
 {% else %}
 
 <h1 class="ttl">Login First</h1>

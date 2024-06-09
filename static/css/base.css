@@ -148,21 +148,6 @@ button:active {
   animation: gradient-animation 10s ease infinite;
 }
 
-@media only screen and (min-device-width: 480px) and (max-device-width: 640px) {
-  .right {
-    font-size: 1rem;
-  }
-
-  .ttl {
-    font-size: 1rem;
-  }
-
-  button {
-    width: 4rem;
-    height: 1.5rem;
-  }
-}
-
 .loader {
   width: 48px;
   height: 48px;

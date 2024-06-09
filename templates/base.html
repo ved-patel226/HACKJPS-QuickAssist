@@ -22,7 +22,7 @@
     <div class="navbar" style="z-index: 999">
       <div class="scale">
         <a href="{{url_for('home')}}" class="left">
-          <!---  THIS IS NOT WORKING!!! WEIRD LINE UNDER SVG-->
+          <!---  fixed -->
           <a href="{{url_for('home')}}" style="text-decoration: none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@
             </svg>
           </a>
         </a>
-        <a href="{{url_for('home')}}" class="right"> QuickAssist </a>
+        <a href="{{url_for('home')}}" class="right del"> QuickAssist </a>
       </div>
       {% block nav %}{% endblock %}
     </div>
@@ -49,13 +49,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
       $(document).ready(function () {
-        $("button, a, .card").click(function () {
-          $(".loader").show(); // Show spinner
-          $("#content").addClass("blur"); // Add blur class to content
+        $("button:not(.no-spin), a, .card").click(function () {
+          $(".loader").show();
         });
         $(window).on("load", function () {
-          $(".loader").hide(); // Hide spinner
-          $("#content").removeClass("blur"); // Remove blur class from content
+          $(".loader").hide();
         });
       });
     </script>

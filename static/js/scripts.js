@@ -7,7 +7,6 @@ form.addEventListener("submit", function (event) {
   if (input.value.trim() === "") {
     alert("Please fill out the input field!");
   } else {
-    // Form submission logic goes here
     form.submit();
   }
 });

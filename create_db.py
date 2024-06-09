@@ -1,7 +1,5 @@
 from sqlalchemy import create_engine, Column, String, Integer, Boolean ,Float
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-
 
 engine = create_engine('postgresql://quickassistdb_h5bg_user:BQTkvSdgb5vOnlJyuaFeth6YWihiQ9jN@dpg-cpiant4f7o1s73bf1c80-a.oregon-postgres.render.com/quickassistdb_h5bg', echo=True)
 

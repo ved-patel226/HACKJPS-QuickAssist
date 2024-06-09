@@ -20,9 +20,9 @@ body {
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 10rem; /* Adjust width as needed */
-  height: 10rem; /* Adjust height as needed */
-  margin-right: 20px; /* Adjust spacing between cards */
+  width: 10rem;
+  height: 10rem;
+  margin-right: 20px;
   background-image: url("replace_in_html");
   background-size: cover;
   background-position: center;
@@ -49,7 +49,7 @@ body {
 }
 .hero {
   display: flex;
-  flex-direction: column; /* Ensure vertical stacking */
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -60,8 +60,7 @@ body {
     #27343c 5%,
     #27343c 95%,
     rgba(39, 52, 60, 0)
-  ); /* Adjust gradient stops */
-
+  );
   height: 10rem;
   position: relative;
 }
@@ -175,6 +174,16 @@ img {
     top: 50%;
     left: 100%;
   }
+
+  button {
+    transform: scale(1.5);
+  }
+  button:hover {
+    transform: scale(1.55);
+  }
+  button:active {
+    transform: scale(1.4);
+  }
 }
 
 @media (max-width: 852px) and (orientation: portrait) {
@@ -182,6 +191,10 @@ img {
     flex-direction: column;
   }
   .feature {
+    margin-left: 0.5rem;
+    margin-right: 0rem;
+    margin-bottom: 1rem;
+    margin-top: 0rem;
     width: 80%;
   }
   .card-container-container {
@@ -207,5 +220,9 @@ img {
     100% {
       transform: translateY(0rem) translateX(-100em);
     }
+  }
+
+  .del {
+    display: none;
   }
 }
