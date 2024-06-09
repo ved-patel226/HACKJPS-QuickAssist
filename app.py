@@ -368,7 +368,7 @@ def call():
 
         return render_template("user_warning.html")
     else:
-        # api_call(user_loc[2], user_loc[1])
+        api_call(user_loc[2], user_loc[1])
         # Call once final version is ready
         # uses credits
 
